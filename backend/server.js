@@ -26,6 +26,8 @@ const __dirname = path.dirname(__filename);
 const allowedOrigins = [
   "http://localhost:5173",
   "https://shayafrontend.vercel.app",
+  "https://shayamodestwear.com",
+  "https://www.shayamodestwear.com",
   process.env.FRONTEND_URL
 ].filter(Boolean);
 
