@@ -18,32 +18,39 @@ const logFormat = winston.format.combine(
   })
 );
 
-// Create logger instance
-const logger = winston.createLogger({
-  level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
-  format: logFormat,
-  transports: [
-    // Console transport
-    new winston.transports.Console({
-      format: winston.format.combine(
-        winston.format.colorize(),
-        logFormat
-      )
-    }),
-    // Error log file
+// Configure transports based on environment
+const transports = [
+  // Console transport (always enabled)
+  new winston.transports.Console({
+    format: winston.format.combine(
+      winston.format.colorize(),
+      logFormat
+    )
+  })
+];
+
+// Only add file transports in development (Vercel filesystem is read-only)
+if (process.env.NODE_ENV !== 'production') {
+  transports.push(
     new winston.transports.File({
       filename: path.join(__dirname, '../logs/error.log'),
       level: 'error',
       maxsize: 5242880, // 5MB
       maxFiles: 5,
     }),
-    // Combined log file
     new winston.transports.File({
       filename: path.join(__dirname, '../logs/combined.log'),
       maxsize: 5242880, // 5MB
       maxFiles: 5,
     })
-  ]
+  );
+}
+
+// Create logger instance
+const logger = winston.createLogger({
+  level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
+  format: logFormat,
+  transports: transports
 });
 
 export default logger;
