@@ -1,10 +1,19 @@
 const validateEnv = () => {
+  // Core required variables
   const requiredEnvVars = [
     'MONGO_URL',
     'JWT_SECRET',
-    'PORT',
-    'FRONTEND_URL'
+    'FRONTEND_URL',
+    'CLOUDINARY_CLOUD_NAME',
+    'CLOUDINARY_API_KEY',
+    'CLOUDINARY_API_SECRET'
   ];
+
+  // PORT is only required in local development (not on Vercel serverless)
+  const isServerless = process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME;
+  if (!isServerless) {
+    requiredEnvVars.push('PORT');
+  }
 
   const missingVars = requiredEnvVars.filter(varName => !process.env[varName]);
 
