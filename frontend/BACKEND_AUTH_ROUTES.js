@@ -1,0 +1,15 @@
+// backend/routes/authRoutes.js
+// Copy this entire file to your backend
+
+import express from "express";
+import { register, login } from "../controllers/authController.js";
+
+const router = express.Router();
+
+// Register new user
+router.post("/register", register);
+
+// Login user
+router.post("/login", login);
+
+export default router;

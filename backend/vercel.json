@@ -1,0 +1,43 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "server.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/products/(.*)",
+      "dest": "server.js"
+    },
+    {
+      "src": "/api/auth/(.*)",
+      "dest": "server.js"
+    },
+    {
+      "src": "/api/orders/(.*)",
+      "dest": "server.js"
+    },
+    {
+      "src": "/api/admin/(.*)",
+      "dest": "server.js"
+    },
+    {
+      "src": "/api/categories/(.*)",
+      "dest": "server.js"
+    },
+    {
+      "src": "/api/health",
+      "dest": "server.js"
+    },
+    {
+      "src": "/uploads/(.*)",
+      "dest": "server.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "server.js"
+    }
+  ]
+}

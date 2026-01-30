@@ -1,0 +1,57 @@
+/* ===============================
+   SHAYA MODESTWEAR - APP LAYOUT
+   =============================== */
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #FAFAFA;
+}
+
+/* Main Content Area */
+.app-content {
+  flex: 1;
+  width: 100%;
+}
+
+/* Prevent layout shifts */
+* {
+  box-sizing: border-box;
+}
+
+/* Smooth Transitions */
+a, button, input, select, textarea {
+  transition: all 0.3s ease;
+}
+
+/* Focus States */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #56642A;
+  outline-offset: 2px;
+}
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+/* Card Styling */
+.card {
+  background: var(--card-bg);
+  padding: 2em;
+  border-radius: 12px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.08);
+  color: var(--text-dark);
+}
+
+/* Petite Text */
+.read-the-docs {
+  color: var(--accent-color);
+}
