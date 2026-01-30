@@ -82,20 +82,26 @@ app.get("/api/health", (req, res) => {
   }
 });
 
-// MongoDB
-mongoose
-  .connect(process.env.MONGO_URL)
-  .then(() => {
-    const dbName = mongoose.connection.db.databaseName;
-    const host = mongoose.connection.host;
+// MongoDB Connection
+let isConnected = false;
+
+const connectDB = async () => {
+  if (isConnected) {
+    return;
+  }
+  
+  try {
+    await mongoose.connect(process.env.MONGO_URL);
+    isConnected = true;
     logger.info("MongoDB Connected Successfully!");
-    logger.info(`Database: ${dbName}`);
-    logger.info(`Host: ${host}`);
-    logger.info(`Connection State: ${mongoose.connection.readyState === 1 ? 'Connected' : 'Disconnected'}`);
-  })
-  .catch((err) => {
+  } catch (err) {
     logger.error("MongoDB Connection Error:", err);
-  });
+    throw err;
+  }
+};
+
+// Connect to MongoDB for serverless
+connectDB();
 
 // For Vercel serverless functions
 const PORT = process.env.PORT || 5000;
