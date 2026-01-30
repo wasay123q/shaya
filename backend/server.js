@@ -64,6 +64,23 @@ app.use("/api/categories", categoryRoutes);
 
 logger.info("All routes mounted successfully");
 
+// Root endpoint
+app.get("/", (req, res) => {
+  res.json({
+    message: "Shaya Backend API",
+    status: "running",
+    version: "1.0.0",
+    endpoints: {
+      health: "/api/health",
+      products: "/api/products",
+      auth: "/api/auth",
+      orders: "/api/orders",
+      admin: "/api/admin",
+      categories: "/api/categories"
+    }
+  });
+});
+
 // Health check endpoint
 app.get("/api/health", (req, res) => {
   const healthcheck = {
