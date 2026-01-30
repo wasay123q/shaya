@@ -1,6 +1,14 @@
 import multer from "multer";
-import path from "path";
+import { v2 as cloudinary } from 'cloudinary';
+import { CloudinaryStorage } from 'multer-storage-cloudinary';
 import crypto from "crypto";
+
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 // Allowed file types for payment proofs
 const ALLOWED_PAYMENT_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
@@ -10,25 +18,29 @@ const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 const ALLOWED_PRODUCT_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
 const MAX_PRODUCT_SIZE = 10 * 1024 * 1024; // 10MB
 
-// Secure storage configuration for payment proofs
-const paymentStorage = multer.diskStorage({
-  destination: "uploads/payments",
-  filename: (req, file, cb) => {
-    // Generate secure random filename
-    const randomName = crypto.randomBytes(16).toString('hex');
-    const ext = path.extname(file.originalname).toLowerCase();
-    cb(null, `payment-${randomName}${ext}`);
+// Cloudinary storage configuration for payment proofs
+const paymentStorage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'shaya/payments',
+    allowed_formats: ['jpeg', 'jpg', 'png', 'webp'],
+    public_id: (req, file) => {
+      const randomName = crypto.randomBytes(16).toString('hex');
+      return `payment-${randomName}`;
+    },
   },
 });
 
-// Secure storage configuration for product images
-const productStorage = multer.diskStorage({
-  destination: "uploads/products",
-  filename: (req, file, cb) => {
-    // Generate secure random filename
-    const randomName = crypto.randomBytes(16).toString('hex');
-    const ext = path.extname(file.originalname).toLowerCase();
-    cb(null, `product-${randomName}${ext}`);
+// Cloudinary storage configuration for product images
+const productStorage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'shaya/products',
+    allowed_formats: ['jpeg', 'jpg', 'png', 'webp'],
+    public_id: (req, file) => {
+      const randomName = crypto.randomBytes(16).toString('hex');
+      return `product-${randomName}`;
+    },
   },
 });
 

@@ -85,7 +85,8 @@ export const placeOrder = async (req, res) => {
       await product.save({ session });
     }
 
-    const paymentProof = req.file ? req.file.filename : null;
+    // Cloudinary returns the URL in req.file.path
+    const paymentProof = req.file ? req.file.path : null;
 
     const newOrder = new Order({
       userId,

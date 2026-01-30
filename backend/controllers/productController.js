@@ -6,7 +6,8 @@ import CATEGORIES from "../config/categories.js";
 export const addProduct = async (req, res) => {
   try {
     const { name, category, price, description, stock } = req.body;
-    const image = req.file ? req.file.filename : "";
+    // Cloudinary returns the URL in req.file.path
+    const image = req.file ? req.file.path : "";
 
 
     // Normalize category to match master list capitalization
