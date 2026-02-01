@@ -177,7 +177,7 @@ export default function Orders() {
                 {o.items?.map((item, i) => (
                   <div key={i} className="item-row">
                     <img 
-                      src={item.image ? `http://localhost:5000/uploads/products/${item.image}` : "https://via.placeholder.com/200x200?text=No+Image"}
+                      src={item.image || "https://via.placeholder.com/200x200?text=No+Image"}
                       alt={item.name}
                       className="item-image"
                       onError={e => { e.target.onerror = null; e.target.src = "https://via.placeholder.com/200x200?text=No+Image"; }}

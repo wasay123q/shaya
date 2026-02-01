@@ -144,7 +144,7 @@ export default function Home() {
               <Link to={`/product/${product._id}`} key={product._id} className="sale-product-card">
                 <div className="sale-image-wrapper">
                   <img 
-                    src={product.image ? `http://localhost:5000/uploads/products/${product.image}` : "https://via.placeholder.com/300x300?text=No+Image"}
+                    src={product.image || "https://via.placeholder.com/300x300?text=No+Image"}
                     alt={product.name}
                     onError={e => { e.target.onerror = null; e.target.src = "https://via.placeholder.com/300x300?text=No+Image"; }}
                   />
@@ -200,7 +200,7 @@ export default function Home() {
                     <span className="badge-out-stock">Sold Out</span>
                   )}
                   <img 
-                    src={product.image ? `http://localhost:5000/uploads/products/${product.image}` : "https://via.placeholder.com/300x300?text=No+Image"}
+                    src={product.image || "https://via.placeholder.com/300x300?text=No+Image"}
                     alt={product.name}
                     className="product-image-home"
                     onError={e => { e.target.onerror = null; e.target.src = "https://via.placeholder.com/300x300?text=No+Image"; }}

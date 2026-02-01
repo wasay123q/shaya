@@ -88,7 +88,7 @@ export default function ManageProducts() {
             <div className="product-card-admin" key={p._id}>
               <div className="product-image-container">
                 <img
-                  src={p.image ? `http://localhost:5000/uploads/products/${p.image}` : "https://via.placeholder.com/200x200?text=No+Image"}
+                  src={p.image || "https://via.placeholder.com/200x200?text=No+Image"}
                   alt={p.name}
                   className="product-image-admin"
                   onError={e => { e.target.onerror = null; e.target.src = "https://via.placeholder.com/200x200?text=No+Image"; }}

@@ -80,7 +80,7 @@ export default function ProductDetails() {
       <div className="product-details-wrapper">
         <div className="product-image-section">
           <img
-            src={p.image ? `http://localhost:5000/uploads/products/${p.image}` : "https://via.placeholder.com/300x300?text=No+Image"}
+            src={p.image || "https://via.placeholder.com/300x300?text=No+Image"}
             alt={p.name}
             className="product-detail-image"
             onError={e => { e.target.onerror = null; e.target.src = "https://via.placeholder.com/300x300?text=No+Image"; }}
